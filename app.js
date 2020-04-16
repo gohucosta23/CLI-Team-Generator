@@ -13,7 +13,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-const teamMember = []
+const teamMember = [];
+
 
 function start(){
     
@@ -31,46 +32,28 @@ function start(){
             name : "id"
         },
         {
-            message : "What is your Job Role?",
+            message : "What is your Job Title?",
             name : "jobTitle"
         }
-    ]).then(function(response){
+    ]).then(function(response){      
         
-        let role = response.jobTitle;
-        teamMember.push(response.name, response.id, response.email);
-        console.log(teamMember);
+        const role = response.jobTitle;
+       
+    
+        
         if (role === "manager" || role === "Manager"){            
             createManager(response);           
         }
         else if(role === "engineer" || role === "Engineer"){
-            createEngineer();
+            createEngineer(response);
         }
         else if(role === "intern" || role === "Intern"){
-            createIntern();
+            createIntern(response);
         }
     });
-}
+};
 
-function confirm(){
-
-    inquirer.prompt([
-        {
-            message : "Do you have any other team members you need to add?",
-            name : "confirm",
-            default : "no"
-        }
-    ]).then(function(response){
-
-        if(response.confirm === "yes"){
-           return start()
-        }
-        else {
-            return;
-        }
-    })
-}
-    function createManager(response){
-
+    function createManager(){
         
         inquirer.prompt([
             {
@@ -80,10 +63,10 @@ function confirm(){
         ]).then(function(response){
             const manager = new Manager(response.office);
             confirm();
-        })
-    }
+        });
+    };
 
-    function createEngineer(response){
+    function createEngineer(){
         inquirer.prompt([
             {
                 message : "What is your Github Username ? ",
@@ -91,10 +74,10 @@ function confirm(){
             }
         ]).then(function(response){
 
-            const engineer = new Engineer(response.school);
+            const engineer = new Engineer(response.github);
             confirm();
-        })
-    }
+        });
+    };
 
     function createIntern(response){
         
@@ -103,34 +86,47 @@ function confirm(){
                 message : "Which school do you go to ? ",
                 name : "school"
             }
-        ]).then(function(response){
+        ]).then(function(answers){
+            console.log(response);
+            console.log(answers);            
+            let intern = new Intern(answers.school, response.name, response.id, response.email, response.jobTitle);  
+            teamMember.push(intern);  
+            confirm();      
+        
+        });
+    };
 
-            const intern = new Intern(response.school);
-            confirm();
-        })
-    }
+    function confirm(){
+
+        inquirer.prompt([
+            {
+                type : "confirm",
+                message : "Do you have any other team members you need to add?",
+                name : "confirm",
+                
+            }
+        ]).then(function(response){
+    
+            if(response.confirm){
+                start()
+            }
+            else {
+               render(teamMember);
+               fs.writeFile("team.html", template, function(error){
+                   if(err){
+                       console.log(error);
+                   }
+                   else{
+                       console.log(renderHTML);
+                   }
+               })
+            }
+        });
+    };
 
 start();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
