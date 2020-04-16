@@ -1,0 +1,29 @@
+{
+  "name": "cli-team-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gohucosta23/CLI-Team-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gohucosta23/CLI-Team-Generator/issues"
+  },
+  "homepage": "https://github.com/gohucosta23/CLI-Team-Generator#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
+  }
+}
