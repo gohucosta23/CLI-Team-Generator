@@ -41,17 +41,23 @@ function start(){
         
         const role = response.jobTitle;
        
-    
-        
-        if (role === "manager" || role === "Manager"){            
-            createManager(response);           
-        }
-        else if(role === "engineer" || role === "Engineer"){
-            createEngineer(response);
-        }
-        else if(role === "intern" || role === "Intern"){
-            createIntern(response);
-        }
+        switch(role){
+
+            case "Manager":
+
+                createManager(response);
+                break;
+
+            case "Engineer":
+
+                createEngineer(response);
+                break;
+            
+            case "Intern":
+
+                createIntern(response);
+                break;
+        }        
     });
 };
 
@@ -59,7 +65,7 @@ function start(){
         
         inquirer.prompt([
             {
-                message : "What is your office number? ",
+                message : "Enter office number : ",
                 name : "office"
             }
         ]).then(function(answers){
@@ -72,7 +78,7 @@ function start(){
     function createEngineer(response){
         inquirer.prompt([
             {
-                message : "What is your Github Username ? ",
+                message : "Enter Github Username : ",
                 name : "github"
             }
         ]).then(function(answers){
@@ -87,7 +93,7 @@ function start(){
         
         inquirer.prompt([
             {
-                message : "Which school do you go to ? ",
+                message : "Enter your School name : ",
                 name : "school"
             }
         ]).then(function(answers){
@@ -111,7 +117,7 @@ function start(){
         ]).then(function(response){
     
             if(response.confirm){
-                start()
+                start();
             }
             else {
 
