@@ -20,20 +20,22 @@ function start(){
     
     inquirer.prompt([
         {
-            message : "What is your name?",
+            message : "Enter name?",
             name : "name"
         },
         {
-            message : "What is your email address?",
+            message : "Enter email address?",
             name : "email"
         },
         {
-            message : "What is your ID number?",
+            message : "Enter ID number?",
             name : "id"
         },
         {
-            message : "What is your Job Title?",
-            name : "jobTitle"
+            type : "list",
+            message : "Choose a Job Title?",
+            name : "jobTitle",
+            choices : ["Manager", "Engineer", "Intern"]
         }
     ]).then(function(response){      
         
@@ -53,28 +55,30 @@ function start(){
     });
 };
 
-    function createManager(){
+    function createManager(response){
         
         inquirer.prompt([
             {
                 message : "What is your office number? ",
                 name : "office"
             }
-        ]).then(function(response){
-            const manager = new Manager(response.office);
+        ]).then(function(answers){
+            const manager = new Manager(answers.office, response.name, response.id, response.email, response.jobTitle);
+            teamMember.push(manager);
             confirm();
         });
     };
 
-    function createEngineer(){
+    function createEngineer(response){
         inquirer.prompt([
             {
                 message : "What is your Github Username ? ",
-                name : "Github"
+                name : "github"
             }
-        ]).then(function(response){
+        ]).then(function(answers){
 
-            const engineer = new Engineer(response.github);
+            const engineer = new Engineer(answers.github, response.name, response.id, response.email, response.jobTitle);
+            teamMember.push(engineer);
             confirm();
         });
     };
@@ -87,8 +91,7 @@ function start(){
                 name : "school"
             }
         ]).then(function(answers){
-            console.log(response);
-            console.log(answers);            
+                    
             let intern = new Intern(answers.school, response.name, response.id, response.email, response.jobTitle);  
             teamMember.push(intern);  
             confirm();      
@@ -111,15 +114,15 @@ function start(){
                 start()
             }
             else {
-               render(teamMember);
-               fs.writeFile("team.html", template, function(error){
-                   if(err){
+
+               const renderHTML = render(teamMember);
+
+               fs.writeFile(outputPath, renderHTML, function(error){
+
+                   if(error){
                        console.log(error);
-                   }
-                   else{
-                       console.log(renderHTML);
-                   }
-               })
+                   }                  
+               });
             }
         });
     };
