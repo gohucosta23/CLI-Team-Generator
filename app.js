@@ -12,10 +12,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
+// Empty array that will have responses
 const teamMember = [];
 
-
+// Function that asks all the questions in common
 function start(){
     
     inquirer.prompt([
@@ -38,7 +38,8 @@ function start(){
             choices : ["Manager", "Engineer", "Intern"]
         }
     ]).then(function(response){      
-        
+    
+        // checking for type of role and sendimg to specific functions for specific questions
         const role = response.jobTitle;
        
         switch(role){
@@ -66,11 +67,11 @@ function start(){
         inquirer.prompt([
             {
                 message : "Enter office number : ",
-                name : "office"
+                name : "officeNumber"
             }
         ]).then(function(answers){
-            const manager = new Manager(answers.office, response.name, response.id, response.email, response.jobTitle);
-            teamMember.push(manager);
+            const manager = new Manager(answers.officeNumber, response.name, response.id, response.email, response.jobTitle);
+            teamMember.push(manager);            
             confirm();
         });
     };
@@ -84,7 +85,7 @@ function start(){
         ]).then(function(answers){
 
             const engineer = new Engineer(answers.github, response.name, response.id, response.email, response.jobTitle);
-            teamMember.push(engineer);
+            teamMember.push(engineer);            
             confirm();
         });
     };
@@ -99,12 +100,13 @@ function start(){
         ]).then(function(answers){
                     
             let intern = new Intern(answers.school, response.name, response.id, response.email, response.jobTitle);  
-            teamMember.push(intern);  
+            teamMember.push(intern);              
             confirm();      
         
         });
     };
 
+    // This function checks if they want to add another team member
     function confirm(){
 
         inquirer.prompt([

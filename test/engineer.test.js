@@ -14,6 +14,6 @@ test("getRole() should return \"Engineer\"", () => {
 
 test("Can get GitHub username via getGithub()", () => {
   const testValue = "GitHubUser";
-  const e = new Engineer("test@test.com", 1, "Foo", testValue);
+  const e = new Engineer(testValue, 1, "Foo","test@test.com");
   expect(e.getGithub()).toBe(testValue);
 });
