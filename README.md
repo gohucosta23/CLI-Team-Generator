@@ -25,6 +25,11 @@
 <p>Since it is all done on the Terminal, Users can clone the repo from Github and once they have it on their computer they will be able to run the application by opening the terminal and typing "node index.js", from there it is as simple as answering the prompts and once they are finished a HTML page named team.html will be generated.</p>
 <br>
 
+![Installation Demo](images/CLI1.gif)
+![Installation Demo](images/cli2.gif)
+![Installation Demo](images/cli3.gif)
+
+
 ## Contributing
 <br>
 <p>No contributors.</p>
