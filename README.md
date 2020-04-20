@@ -17,7 +17,7 @@
 <br>
 <p> This is a simple Team Generator built using Node.js and Javascript that allows users to input information about their teammates, all done on CLI and then pushed into the browser. Users can input as many Managers, Engineers and Interns as they want, and a card will be generated and print on the browser's screen.</p>
 <br>
-<img src = "images/TeamGenerator.png" width ="300px" height = "300px">
+<img src = "images/TeamGenerator.png" width ="600px" height = "400px">
 
 
 ## Installation
